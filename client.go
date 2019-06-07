@@ -60,7 +60,7 @@ func GetCategories() Categories {
 //It's advisable to use a singular request to the compact API, rather than multiple requests to this API.
 func GetItems(league, category string) Items {
 	st := Items{}
-	req := get(baseURL + "get?league=" + league + " &category=" + category)
+	req := get(baseURL + "get?league=" + league + "&category=" + category)
 	json.Unmarshal([]byte(req), &st)
 	return st
 }
