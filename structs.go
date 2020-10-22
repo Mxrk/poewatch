@@ -16,8 +16,7 @@ type Categories []struct {
 
 //ID is the reply struct for the GetChangeID function
 type ID struct {
-	ID   string    `json:"id"`
-	Time time.Time `json:"time"`
+	ID string `json:"changeID"`
 }
 
 //Leagues is the reply struct for the GetLeagues function
@@ -48,11 +47,17 @@ type ItemData []struct {
 }
 
 //Characters is the reply struct for the GetCharacters function
-type Characters []struct {
-	Character string    `json:"character"`
-	League    string    `json:"league"`
-	Found     time.Time `json:"found"`
-	Seen      time.Time `json:"seen"`
+type Characters struct {
+	ID    int       `json:"id"`
+	Name  string    `json:"name"`
+	Found time.Time `json:"found"`
+	Seen  time.Time `json:"seen"`
+	Chars []struct {
+		ID    int       `json:"id"`
+		Name  string    `json:"name"`
+		Found time.Time `json:"found"`
+		Seen  time.Time `json:"seen"`
+	} `json:"chars"`
 }
 
 //Accounts is the reply struct for the GetAccounts function

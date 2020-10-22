@@ -6,10 +6,9 @@ import poe "github.com/mxrk/poewatch"
 func main(){
     // Every function returns a struct with the given information
     fmt.Println(poe.GetChangeID())
-    // for example GetChangeID has the values "Time" and "ID"
+    // for example GetChangeID has the value "ID"
     id := poe.GetChangeID().ID
-    time := poe.GetChangeID().Time
-    fmt.Printf("new ID: %v at %v \n" id, time)
+    fmt.Printf("new ID: %v \n", id)
 
 
     fmt.Println(poe.GetLeagues())
