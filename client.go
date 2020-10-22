@@ -1,6 +1,9 @@
 package poewatch
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"log"
+)
 
 type Client struct {
 	// todo
@@ -11,7 +14,7 @@ var baseURL = "https://api.poe.watch/"
 //GetChangeID returns the latest change ID from the top of the river and the time
 func GetChangeID() ID {
 	st := ID{}
-	req := get(baseURL + "id")
+	req := get(baseURL + "status")
 	json.Unmarshal([]byte(req), &st)
 	return st
 }
@@ -35,16 +38,22 @@ func GetItemData() ItemData {
 //GetCharacters returns the player character names found through the stash api
 func GetCharacters(name string) Characters {
 	st := Characters{}
-	req := get(baseURL + "characters?account=" + name)
-	json.Unmarshal([]byte(req), &st)
+	req := get(baseURL + "account?name=" + name)
+	err := json.Unmarshal([]byte(req), &st)
+	if err != nil {
+		log.Println(err)
+	}
 	return st
 }
 
-//GetAccounts returns player account names
-func GetAccounts(name string) Accounts {
+//GetAccount returns player account name via a char name
+func GetAccount(name string) Accounts {
 	st := Accounts{}
-	req := get(baseURL + "accounts?character=" + name)
-	json.Unmarshal([]byte(req), &st)
+	req := get(baseURL + "char?name=" + name)
+	err := json.Unmarshal([]byte(req), &st)
+	if err != nil {
+		log.Println(err)
+	}
 	return st
 }
 
@@ -76,7 +85,7 @@ func GetCompact(league string) Compact {
 //GetItem returns information about a specific item.
 func GetItem(itemID string) Item {
 	st := Item{}
-	req := get(baseURL + "item?id=" + itemID)
+	req := get(baseURL + "id?id=" + itemID)
 	json.Unmarshal([]byte(req), &st)
 	return st
 }
@@ -84,15 +93,7 @@ func GetItem(itemID string) Item {
 //GetItemHistory returns prices from past leagues.
 func GetItemHistory(itemID, league string) History {
 	st := History{}
-	req := get(baseURL + "itemhistory?id=" + itemID + "&league=" + league)
-	json.Unmarshal([]byte(req), &st)
-	return st
-}
-
-//GetListings returns all listings for an account.
-func GetListings(league, account string, onlyPriced bool) Listings {
-	st := Listings{}
-	req := get(baseURL + "listings?league=" + league + "&account=" + account)
+	req := get(baseURL + "history?id=" + itemID + "&league=" + league)
 	json.Unmarshal([]byte(req), &st)
 	return st
 }
