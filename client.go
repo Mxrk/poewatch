@@ -102,6 +102,14 @@ func GetItemHistory(itemID, league string) History {
 func GetEnchants(itemID string, league string) []Enchants {
 	st := []Enchants{}
 	req := get(baseURL + "enchants?id=" + itemID + "&league=" + league)
+  json.Unmarshal([]byte(req), &st)
+	return st
+}
+
+//GetCorruptions returns corruption data for a given item
+func GetCorruptions(itemID, league string) []Corruptions {
+	st := []Corruptions{}
+	req := get(baseURL + "corruptions?id=" + itemID + "&league=" + league)
 	json.Unmarshal([]byte(req), &st)
 	return st
 }
