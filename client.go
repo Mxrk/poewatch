@@ -3,6 +3,8 @@ package poewatch
 import (
 	"encoding/json"
 	"log"
+	"net/url"
+	"strconv"
 )
 
 type Client struct {
@@ -74,6 +76,40 @@ func GetItems(league, category string) Items {
 	return st
 }
 
+//GetItemsFilter returns price and item for specified league and category with a given filter.
+func GetItemsFilter(league, category string, args FilterArgs) Items {
+	st := Items{}
+
+	values := url.Values{}
+
+	values.Add("league", league)
+	values.Add("category", category)
+
+	if args.GemLevel != 0 {
+		values.Add("gemLevel", strconv.Itoa(args.GemLevel))
+	}
+
+	if args.GemCorrupted {
+		values.Add("gemCorrupted", strconv.FormatBool(args.GemCorrupted))
+	}
+
+	if args.LowConfidence {
+		values.Add("lowConfidence", strconv.FormatBool(args.LowConfidence))
+	}
+
+	if args.ItemLevel != 0 {
+		values.Add("itemLevel", strconv.Itoa(args.ItemLevel))
+	}
+
+	if args.LinkCount != 0 {
+		values.Add("linkCount", strconv.Itoa(args.LinkCount))
+	}
+
+	req := get(baseURL + "get" + values.Encode())
+	json.Unmarshal([]byte(req), &st)
+	return st
+}
+
 //GetCompact returns price data of all items provided in the active league
 func GetCompact(league string) Compact {
 	st := Compact{}
@@ -102,7 +138,7 @@ func GetItemHistory(itemID, league string) History {
 func GetEnchants(itemID string, league string) []Enchants {
 	st := []Enchants{}
 	req := get(baseURL + "enchants?id=" + itemID + "&league=" + league)
-  json.Unmarshal([]byte(req), &st)
+	json.Unmarshal([]byte(req), &st)
 	return st
 }
 
