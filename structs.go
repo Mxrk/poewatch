@@ -166,6 +166,14 @@ type Listings []struct {
 	} `json:"buyout"`
 }
 
+// Enchants is the reply struct for the Enchants function
+type Enchants struct {
+	Name          string  `json:"name"`
+	Value         float64 `json:"value"`
+	LowConfidence bool    `json:"lowConfidence"`
+}
+
+// Corruptions is the reply struct for the Corruptions function
 type Corruptions struct {
 	Name string  `json:"name"`
 	Mean float64 `json:"mean"`
