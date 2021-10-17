@@ -179,6 +179,7 @@ type Corruptions struct {
 	Mean float64 `json:"mean"`
 }
 
+// FilterArgs are the arguments for GetItemsFilter
 type FilterArgs struct {
 	GemLevel      int
 	GemCorrupted  bool
