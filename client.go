@@ -97,3 +97,11 @@ func GetItemHistory(itemID, league string) History {
 	json.Unmarshal([]byte(req), &st)
 	return st
 }
+
+//GetEnchants returns Enchant data for a given Item in a league.
+func GetEnchants(itemID string, league string) []Enchants {
+	st := []Enchants{}
+	req := get(baseURL + "enchants?id=" + itemID + "&league=" + league)
+	json.Unmarshal([]byte(req), &st)
+	return st
+}

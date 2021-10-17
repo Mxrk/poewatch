@@ -165,3 +165,9 @@ type Listings []struct {
 		Count    int     `json:"count"`
 	} `json:"buyout"`
 }
+
+type Enchants struct {
+	Name          string  `json:"name"`
+	Value         float64 `json:"value"`
+	LowConfidence bool    `json:"lowConfidence"`
+}
