@@ -165,3 +165,8 @@ type Listings []struct {
 		Count    int     `json:"count"`
 	} `json:"buyout"`
 }
+
+type Corruptions struct {
+	Name string  `json:"name"`
+	Mean float64 `json:"mean"`
+}
