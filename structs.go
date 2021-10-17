@@ -178,3 +178,11 @@ type Corruptions struct {
 	Name string  `json:"name"`
 	Mean float64 `json:"mean"`
 }
+
+type FilterArgs struct {
+	GemLevel      int
+	GemCorrupted  bool
+	LowConfidence bool
+	ItemLevel     int
+	LinkCount     int
+}
